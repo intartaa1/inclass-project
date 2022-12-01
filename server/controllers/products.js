@@ -21,7 +21,12 @@ app
         })
         .catch(next);
         
-    });
-
+    })
+    .post('/seed', (req, res, next) => {
+        products.seed()
+        .then(x=> res.status(200).send(x))
+        .catch(next);
+    })
+;
 
 module.exports = app;
