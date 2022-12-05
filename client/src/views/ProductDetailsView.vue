@@ -2,15 +2,20 @@
     import { isLoading } from "@/stores/session";
     import { ref } from "vue";
     import { useRoute } from "vue-router";
+
     import { getProduct, type Product } from "../stores/products";
+
     const route = useRoute();
     
     const product = ref(null as Product | null);
+
     getProduct(+route.params.id).then(x => {
         product.value = x
         console.log('The fetch returned');
     });
+
     console.log('The fetch was called');
+    
 </script>
 
 <template>
