@@ -44,7 +44,18 @@
 
    async function cancel() {
     await router.push({ name: 'admin_products' });    
-   } 
+   }
+   
+   const isTenorSearchOpen = ref(false);
+   const tenorSearch = ref('');
+   const tenorResults = ref([] as any[]);
+   watch(tenorSearch, async () => {
+    if(tenorSearch.value.length > 2) {
+        const data = await fetch()
+                            .then(x => x.json())
+        console.log({ data });
+        tenorResults.value = data.results;
+   });
 </script>
 
 <template>
@@ -137,12 +148,27 @@
                             <label class="label">Thumbnail</label>
                         </div>
                         <div class="field-body">
+                            <div class="field has-addons">
                             <div class="field">
                                 <div class="control">
                                     <input class="input" type="text" placeholder="Complete URL" v-model="product.thumbnail">
                                 </div>
+                                <p class="control">
+                                    <a class="button is-warning" @click.prevent="(isTenorSearchOpen = !isTenorSearhOpen)">
+                                        Find a GIF
+                                    </a>
+                                </p>
 
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="box" v-show="isTenorSearchOpen">
+                        <h3>Tenor Search</h3>
+                        <input class="input" type="text" placeholder="Complete URL" v-model="tenorSearch" />
+
+                        <div class="image tenor-gif" v-for="tenorGif is tenorResults" :key="(tenorGif.id" >
+                            <img :src="tenorGif.data.results[0].media_formats.tinygif.url" />
                         </div>
                     </div>
                     
@@ -190,5 +216,11 @@
 <style scoped>
     .modal-card {
         width: 100%;
+    }
+
+    .tenor-gif {
+        display: inline-block;
+        margin: 0 10px 10px 0;
+        max-width: 220px;
     }
 </style>
