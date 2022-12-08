@@ -1,6 +1,7 @@
 import 'bulma';
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import NavVue from '../components/Nav.tsx'
 
 const NavVue = ()=> <div className="navbar is-primary"></div>
 
