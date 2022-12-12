@@ -1,4 +1,4 @@
-import { api } from "./session";
+import api from "./session";
 
 
 
