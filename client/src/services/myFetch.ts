@@ -16,3 +16,7 @@ export default function myFetch<T>(url: string, data: any = null, method?: strin
         }
      } );
 }
+
+export default function api<T>(action: string, data: any = null, method?: string ) {
+    return myFetch<T>(API_ROOT + action, data, method);
+}
