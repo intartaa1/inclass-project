@@ -1,14 +1,15 @@
 export const API_ROOT = process.env.VITE_API_ROOT;
 
-export default function myFetch<T>(url: string, data: any = null, method?: string ): Promise<T> {
+export function myFetch<T>(url: string, data: any = null, method?: string ): Promise<T> {
     const options: RequestInit = {
         method: method ?? (data ? 'POST' : 'GET'),
         headers: {
             'Content-Type': 'application/json',
+            ...headers,
         },
         body: data ? JSON.stringify(data) : undefined,
     };
-    return fetch(API_ROOT + url, options).then( x=>{
+    return fetch(url, options).then( x=>{
         if(x.ok){
             return x.json();
         }else{
